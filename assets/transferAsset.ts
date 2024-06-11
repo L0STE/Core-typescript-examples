@@ -33,7 +33,7 @@ umi.use(signerIdentity(myKeypairSigner));
 
     // Deserialize the Signature from the Transaction
     const signature = base58.deserialize(tx.signature)[0];
-    console.log(`\nAsset Transferred to new owner: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
+    console.log(`\nAsset Transferred to new owner: https://solana.fm/tx/${signature}?cluster=devnet-alpha`);
 })();
 
 /*

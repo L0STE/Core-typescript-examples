@@ -13,12 +13,11 @@ umi.use(signerIdentity(myKeypairSigner));
 
 (async () => {
     // Pass and Fetch the Asset
-    const asset = publicKey("9C9sBLuoB3jVGS9GZNyXQ3u9DW1peGxF8nmav71hFiFx");
+    const asset = publicKey("Eg6rPUNMS3GvtMqiNRv6bf7GurUGKxqevmdZSQ2ErTvn");
+    const collection = publicKey("HpYvUkeWiQDePHCByQvFhHhcsJhwcsKHNKZnxutGSrtE")
+
     const fetchedAsset = await fetchAsset(umi, asset);
     console.log("\nThis is the current state of your Asset Attribute Plugin: ", fetchedAsset.attributes);
-
-    // Pass the Collection
-    const collection = publicKey("73UQSMT6WGBsnS4VRZapLnYGzjEPKaEUuzCCQntEQZSP");
 
     const currentTime = new Date().getTime().toString();
 
@@ -52,13 +51,13 @@ umi.use(signerIdentity(myKeypairSigner));
             );
 
             if (stakedAttribute && stakedAttribute.value !== "0") {
-            throw new Error("Asset is already staked");
+                throw new Error("Asset is already staked");
             } else {
-            assetAttribute.forEach((attr) => {
-                if (attr.key === "staked") {
-                attr.value = currentTime;
-                }
-            });
+                assetAttribute.forEach((attr) => {
+                    if (attr.key === "staked") {
+                        attr.value = currentTime;
+                    }
+                });
             }
         } else {
             // If it is not, add the staked & stakedTime attribute
@@ -79,6 +78,6 @@ umi.use(signerIdentity(myKeypairSigner));
 
     // Deserialize the Signature from the Transaction
     const signature = base58.deserialize(tx.signature)[0];
-    console.log(`\nAsset Staked: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
+    console.log(`\nAsset Staked: https://solana.fm/tx/${signature}?cluster=devnet-alpha`);
 
 })();

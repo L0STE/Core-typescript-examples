@@ -15,9 +15,10 @@ umi.use(signerIdentity(myKeypairSigner));
 (async () => {
     // Generate the Asset KeyPair
     const asset = generateSigner(umi)
+    console.log("\nAsset Address: ", asset.publicKey.toString())
 
     // Pass and Fetch the Collection
-    const collection = publicKey("73UQSMT6WGBsnS4VRZapLnYGzjEPKaEUuzCCQntEQZSP")
+    const collection = publicKey("HpYvUkeWiQDePHCByQvFhHhcsJhwcsKHNKZnxutGSrtE")
     const fetchedCollection = await fetchCollection(umi, collection);
 
     // Generate the Asset
@@ -30,6 +31,5 @@ umi.use(signerIdentity(myKeypairSigner));
 
     // Deserialize the Signature from the Transaction
     const signature = base58.deserialize(tx.signature)[0];
-    console.log(`Asset added to the Collection: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
-
+    console.log(`Asset added to the Collection: https://solana.fm/tx/${signature}?cluster=devnet-alpha`);
 })();

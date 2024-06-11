@@ -9,7 +9,8 @@
     "burnAsset": "ts-node ./assets/burnAsset.ts",
     "addAsset": "ts-node ./assets/addAsset.ts",
     "stake": "ts-node ./stakingExample/stake.ts",
-    "unstake": "ts-node ./stakingExample/unstake.ts"
+    "unstake": "ts-node ./stakingExample/unstake.ts",
+    "readAttributeData": "ts-node ./stakingExample/readAttributeData.ts"
   },
   "dependencies": {
     "@metaplex-foundation/digital-asset-standard-api": "^1.0.3",

@@ -12,8 +12,8 @@ const myKeypairSigner = createSignerFromKeypair(umi, keyair);
 umi.use(signerIdentity(myKeypairSigner));
 
 (async () => {
-    const asset = publicKey("9C9sBLuoB3jVGS9GZNyXQ3u9DW1peGxF8nmav71hFiFx");
-    const collection = publicKey("73UQSMT6WGBsnS4VRZapLnYGzjEPKaEUuzCCQntEQZSP")
+    const asset = publicKey("Eg6rPUNMS3GvtMqiNRv6bf7GurUGKxqevmdZSQ2ErTvn");
+    const collection = publicKey("HpYvUkeWiQDePHCByQvFhHhcsJhwcsKHNKZnxutGSrtE")
 
     const fetchedAsset = await fetchAsset(umi, asset);
     console.log("This is the current state of your Asset Attribute Plugin", fetchedAsset.attributes);
@@ -68,5 +68,5 @@ umi.use(signerIdentity(myKeypairSigner));
     }).sendAndConfirm(umi);
 
     const signature = base58.deserialize(tx.signature)[0];
-    console.log(`\nAsset Unstaked: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
+    console.log(`\nAsset Unstaked: https://solana.fm/tx/${signature}?cluster=devnet-alpha`);
 })();

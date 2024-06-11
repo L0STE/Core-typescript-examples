@@ -26,7 +26,7 @@ umi.use(signerIdentity(myKeypairSigner));
 
     // Deserialize the Signature from the Transaction
     const signature = base58.deserialize(tx.signature)[0];
-    console.log(`\nAsset Created: https://explorer.solana.com/tx/${signature}?cluster=devnet`);
+    console.log(`\nAsset Created: https://solana.fm/tx/${signature}?cluster=devnet-alpha`);
 })();
 
 /*
