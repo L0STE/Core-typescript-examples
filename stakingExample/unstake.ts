@@ -12,12 +12,15 @@ const myKeypairSigner = createSignerFromKeypair(umi, keyair);
 umi.use(signerIdentity(myKeypairSigner));
 
 (async () => {
+    // Pass the Asset and Collection
     const asset = publicKey("Eg6rPUNMS3GvtMqiNRv6bf7GurUGKxqevmdZSQ2ErTvn");
     const collection = publicKey("HpYvUkeWiQDePHCByQvFhHhcsJhwcsKHNKZnxutGSrtE")
 
+    // Fetch the Asset Attributes
     const fetchedAsset = await fetchAsset(umi, asset);
     console.log("This is the current state of your Asset Attribute Plugin", fetchedAsset.attributes);
 
+    // If there is no attribute plugin attached to the asset, throw an error
     if (!fetchedAsset.attributes) {
       throw new Error(
         "Asset has no Attribute Plugin attached to it. Please go through the stake instruction before."
@@ -25,15 +28,15 @@ umi.use(signerIdentity(myKeypairSigner));
     }
     
     const assetAttribute = fetchedAsset.attributes.attributeList;
-    const stakedTimeAttribute = assetAttribute.find(
-      (attr) => attr.key === "stakedTime"
-    );
+    // Check if the asset has a stakedTime attribute attached to it, if not throw an error
+    const stakedTimeAttribute = assetAttribute.find((attr) => attr.key === "stakedTime");
     if (!stakedTimeAttribute) {
       throw new Error(
         "Asset has no stakedTime attribute attached to it. Please go through the stake instruction before."
       );
     }
 
+    // Check if the asset has a staked attribute attached to it, if not throw an error
     const stakedAttribute = assetAttribute.find((attr) => attr.key === "staked");
     if (!stakedAttribute) {
       throw new Error(
@@ -41,6 +44,7 @@ umi.use(signerIdentity(myKeypairSigner));
       );
     }
 
+    // Check if the asset is already staked (!0), if not throw an error.
     if (stakedAttribute.value === "0") {
       throw new Error("Asset is not staked");
     } else {
@@ -48,6 +52,7 @@ umi.use(signerIdentity(myKeypairSigner));
       const stakedValue = parseInt(stakedAttribute.value);
       const elapsedTime = new Date().getTime() - stakedValue;
 
+      // Update the stakedTime attribute to the new value and the staked attribute to 0
       assetAttribute.forEach((attr) => {
         if (attr.key === "stakedTime") {
           attr.value = (stakedTimeValue + elapsedTime).toString();
@@ -58,6 +63,7 @@ umi.use(signerIdentity(myKeypairSigner));
       });
     }
 
+    // Update the Asset Attribute Plugin with the new attributeList
     let tx = await updatePlugin(umi, {
       asset,
       collection,

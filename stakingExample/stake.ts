@@ -12,10 +12,11 @@ const myKeypairSigner = createSignerFromKeypair(umi, keyair);
 umi.use(signerIdentity(myKeypairSigner));
 
 (async () => {
-    // Pass and Fetch the Asset
+    // Pass the Asset and Collection
     const asset = publicKey("Eg6rPUNMS3GvtMqiNRv6bf7GurUGKxqevmdZSQ2ErTvn");
     const collection = publicKey("HpYvUkeWiQDePHCByQvFhHhcsJhwcsKHNKZnxutGSrtE")
 
+    // Fetch the Asset Attributes
     const fetchedAsset = await fetchAsset(umi, asset);
     console.log("\nThis is the current state of your Asset Attribute Plugin: ", fetchedAsset.attributes);
 
